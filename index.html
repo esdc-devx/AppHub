@@ -31,8 +31,8 @@
       <tbody>
         <tr v-for="solution in solutions">
           <td>{{ solution.name }}</td>
-          <td><progress v-bind:value="solution.value" max="100"></progress></td>
-          <td>{{ solution.value }}%</td>
+          <td><progress v-bind:value="solution.cdCoverage" max="100"></progress></td>
+          <td>{{ solution.cdCoverage }}%</td>
           <td>{{ solution.date }}</td>
         </tr>
       </tbody>

@@ -24,12 +24,12 @@ var coreDataTable = new Vue({
     solutions: [
       {
         name: 'app1',
-        value: '0',
+        cdCoverage: '0',
         date: 'n/a'
       },
       {
         name: 'App 2',
-        value: '80',
+        cdCoverage: '80',
         date: '2019/02/04 12:15'
       },
     ]
