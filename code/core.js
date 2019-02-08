@@ -1,16 +1,22 @@
-var title = new Vue({
-  el: 'title',
+var developer = "Developer Experience"
+var appName = "App Hub";
+var appDescription = 'The App Hub, otherwise known as the Application Dashborad Hub. The App Hub is a dashboard to show application pipeline status for multiple solutions in ESDC.';
+
+var head = new Vue({
+  el: 'head',
   data: {
-    title: 'App Hub'
+    title: appName + ' - ' + developer,
+    description: appDescription,
+    author: 'GoC - ' + developer
   }
 });
 
 var appDetails = new Vue({
   el: '#appDetails',
   data: {
-    name: 'App Hub',
-    description: 'The App Hub, otherwise known as the Application Dashborad Hub. The App Hub is a dashboard to show application pipeline status for multiple solutions in ESDC.',
-    build: 'Built by the Developer Experince team.'
+    name: appName,
+    description: appDescription,
+    build: 'Built by the ' + developer + ' team.'
   }
 });
 
