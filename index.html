@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ title }}</title>
+
+  <meta charset="utf-8">
+  <meta name="description" v-bind:content="description">
+  <meta name="keywords" content="App,Application,Hub,Dashboard,Code,Coverage,Automated,Unit Test">
+  <meta name="author" v-bind:content="author">
+
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- production version, optimized for size and speed -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+</head>
+
+<body>
+
+  <div id="appDetails">
+    <h1>{{ name }}</h1>
+    <p>{{ description }} <em>{{ build }}</em></p>
+  </div>
+
+  <div id="coreDataTable">
+    <table>
+      <caption>{{ caption }}</caption>
+      <thead>
+        <tr>
+          <td>{{ slnHeader }}</td>
+          <td colspan="2">{{ coverageHeader }}</td>
+          <td>{{ dateHeader }}</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="solution in solutions">
+          <td>{{ solution.name }}</td>
+          <td><progress v-bind:value="solution.cdCoverage" max="100"></progress></td>
+          <td>{{ solution.cdCoverage }}%</td>
+          <td>{{ solution.date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="code/core.js"></script>
+</body>
+
+</html>
