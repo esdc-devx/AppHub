@@ -1,11 +1,20 @@
 const data = require('../data');
 
 test('GetCCAlert returns "warning" with 10 provided', () => {
-    expect(data(10)).toBe('warning'); //works but I'm not sure why the function name isn't needed...
-
-    // var sut = jest.fn(data.GetCCAlert);
-    // var result = sut(10); // this returns undified...
-    // expect(result).toBe('warning');
+    var result = data.GetCCAlert(10);
+    expect(result).toBe('warning');
+});
+test('GetCCAlert returns "danger" with null provided', () => {
+    var result = data.GetCCAlert(null);
+    expect(result).toBe('danger');
+});
+test('GetCCAlert returns "danger" with 0 provided', () => {
+    var result = data.GetCCAlert(0);
+    expect(result).toBe('danger');
+});
+test('GetCCAlert returns "success" with 50 provided', () => {
+    var result = data.GetCCAlert(50);
+    expect(result).toBe('success');
 });
 
 test('GetCCData returns results', () => {

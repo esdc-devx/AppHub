@@ -3,9 +3,6 @@ var appName = "App Hub";
 var appNameFull = "Application Dashboard Hub";
 var appDescription = 'The ' + appName + ', otherwise known as the ' + appNameFull + '. The ' + appName + ' is a dashboard to show application pipeline status for multiple solutions in ESDC.';
 
-//include js files
-const data = require('./data');
-
 var head = new Vue({
   el: 'head',
   data: {
@@ -31,6 +28,6 @@ var coreDataTable = new Vue({
     slnHeader: 'Solution',
     coverageHeader: 'Coverage',
     dateHeader: 'Date Updated',
-    solutions: data()
+    solutions: GetCCData()
   }
 });

@@ -7,6 +7,8 @@ function GetCCAlert(ccPercentage) {
         return 'success';
     }
 }
+module.exports.GetCCAlert = GetCCAlert;
+
 function GetCCData() {
     return [
         {
@@ -21,8 +23,4 @@ function GetCCData() {
         },
     ];
 }
-
-
-
-module.exports = GetCCData;
-module.exports = GetCCAlert;
+module.exports.GetCCData = GetCCData;
