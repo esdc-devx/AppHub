@@ -56,7 +56,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="solution in solutions">
+          <tr v-for="solution in solutions" v-bind:class="solution.status">
             <td>{{ solution.name }}</td>
             <td><progress v-bind:value="solution.cdCoverage" max="100"></progress></td>
             <td>{{ solution.cdCoverage }}%</td>
