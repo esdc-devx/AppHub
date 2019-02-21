@@ -1,0 +1,66 @@
+<template>
+  <div class="hello">
+    <div id="coreDataTable">
+      <table class="table">
+        <caption>{{ caption }}</caption>
+        <thead>
+          <tr>
+            <td>{{ slnHeader }}</td>
+            <td colspan="2">{{ coverageHeader }}</td>
+            <td>{{ dateHeader }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="solution in solutions">
+            <td>{{ solution.name }}</td>
+            <td><progress v-bind:value="solution.cdCoverage" max="100"></progress></td>
+            <td>{{ solution.cdCoverage }}%</td>
+            <td>{{ solution.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component
+export default class HelloWorld extends Vue {
+  @Prop() private caption: string =  'Code Coverage Status';
+  @Prop() private slnHeader: string = 'Solution';
+  @Prop() private coverageHeader: string = 'Coverage';
+  @Prop() private dateHeader: string = 'Date Updated';
+  @Prop() private  solutions: any[] = [
+       {
+            name: 'app1',
+            cdCoverage: '0',
+            date: 'n/a'
+        },
+        {
+            name: 'App 2',
+            cdCoverage: '80',
+            date: '2019/02/04 12:15'
+        },
+    ];
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
