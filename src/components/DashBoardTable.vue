@@ -4,17 +4,17 @@
         <caption>{{ caption }}</caption>
         <thead>
           <tr>
-            <td>{{ slnHeader }}</td>
-            <td colspan="2">{{ coverageHeader }}</td>
-            <td>{{ dateHeader }}</td>
+            <th v-for="key in headers">{{ key }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="solution in solutions">
-            <td>{{ solution.name }}</td>
-            <td><progress v-bind:value="solution.cdCoverage" max="100"></progress></td>
-            <td>{{ solution.cdCoverage }}%</td>
-            <td>{{ solution.date }}</td>
+          <tr v-for="sln in solutions">
+            <td>{{ sln.name }}</td>
+            <td>
+              <progress v-bind:value="sln.coverage" max="100"></progress>
+              <span class="mrgn-lft-md">{{ sln.coverage }}%</span>
+            </td>
+            <td>{{ sln.date }}</td>
           </tr>
         </tbody>
       </table>
@@ -27,18 +27,16 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class CoreDataTable extends Vue {
   @Prop() private caption: string =  'Code Coverage Status';
-  @Prop() private slnHeader: string = 'Solution';
-  @Prop() private coverageHeader: string = 'Coverage';
-  @Prop() private dateHeader: string = 'Date Updated';
+  @Prop() private headers: any[] = ['Solution', 'Coverage', 'Updated']
   @Prop() private  solutions: any[] = [
        {
             name: 'app1',
-            cdCoverage: 0,
+            coverage: 0,
             date: 'n/a'
         },
         {
             name: 'App 2',
-            cdCoverage: 80,
+            coverage: 80,
             date: '2019/02/04 12:15'
         },
     ];
