@@ -1,5 +1,4 @@
 <template>
-  <div class="hello">
     <div id="coreDataTable">
       <table class="table">
         <caption>{{ caption }}</caption>
@@ -20,14 +19,13 @@
         </tbody>
       </table>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class HelloWorld extends Vue {
+export default class CoreDataTable extends Vue {
   @Prop() private caption: string =  'Code Coverage Status';
   @Prop() private slnHeader: string = 'Solution';
   @Prop() private coverageHeader: string = 'Coverage';
@@ -35,12 +33,12 @@ export default class HelloWorld extends Vue {
   @Prop() private  solutions: any[] = [
        {
             name: 'app1',
-            cdCoverage: '0',
+            cdCoverage: 0,
             date: 'n/a'
         },
         {
             name: 'App 2',
-            cdCoverage: '80',
+            cdCoverage: 80,
             date: '2019/02/04 12:15'
         },
     ];

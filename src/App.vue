@@ -4,6 +4,7 @@
       <h1>{{ name }}</h1>
       <p>{{ description }} <em>{{ build }}</em></p>
     </div>
+    <DashBoardTable />
   </div>
 </template>
 
