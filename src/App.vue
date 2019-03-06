@@ -4,16 +4,17 @@
       <h1>{{ name }}</h1>
       <p>{{ description }} <em>{{ build }}</em></p>
     </div>
+    <DashBoardTable />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
+import DashBoardTable from "./components/DashBoardTable.vue";
 
 @Component({
   components: {
-    HelloWorld
+    DashBoardTable
   }
 })
 export default class App extends Vue {
@@ -23,13 +24,5 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<!-- Shcould be taken from the WET teamplate -->
+<style></style>
