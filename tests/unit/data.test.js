@@ -1,4 +1,4 @@
-const data = require('../data');
+const data = require('../../public/code/data');
 
 test('GetCCAlert returns "warning" with 10 provided', () => {
     var result = data.GetCCAlert(10);

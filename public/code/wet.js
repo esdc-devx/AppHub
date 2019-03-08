@@ -3,7 +3,7 @@ window.onload = function () {
     defTop.outerHTML = wet.builder.appTop({
         appName: [{
             href: '#',
-            text: appNameFull
+            text: 'Application Dashboard'
         }],
         cdnEnv: 'AKAMAI',
         subTheme: 'gcweb',
