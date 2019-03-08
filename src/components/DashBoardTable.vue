@@ -1,14 +1,18 @@
 <template>
   <div id="coreDataTable">
     <table class="table">
-        <caption>{{ caption }}</caption>
+      <caption>
+        {{
+          caption
+        }}
+      </caption>
       <thead>
         <tr>
-          <th v-for="key in headers">{{ key }}</th>
+          <th v-for="name in headers" :key="name.id">{{ name }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="sln in solutions" v-bind:class="sln.status">
+        <tr v-for="sln in solutions" v-bind:class="sln.status" :key="sln.id">
           <td>{{ sln.name }}</td>
           <td>
             <progress v-bind:value="sln.coverage" max="100"></progress>
@@ -23,12 +27,18 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { CCData } from "../data";
 
 @Component
 export default class CoreDataTable extends Vue {
   @Prop() private caption: string = "Code Coverage Status";
   @Prop() private headers: any[] = ["Solution", "Coverage", "Updated"];
-  @Prop() private solutions: [] = GetCCDataWithAlert(); //public\code\data.js calling this function, functionally works yet the vue cli still thows an error
+  @Prop() private solutions: any[] = [];
+
+  created() {
+    const apiClient = new CCData();
+    this.solutions = apiClient.GetCCDataWithAlert();
+  }
 }
 </script>
 
