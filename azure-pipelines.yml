@@ -26,9 +26,10 @@ jobs:
   - job: a11y_test
     pool:
       vmImage: 'Ubuntu-16.04'
+    dependsOn: build_image
     steps:
       - task: DownloadPipelineArtifact@0
         inputs: 
           targetPath: .
           artifactName: 'testImage'
-
+            
