@@ -17,7 +17,7 @@ jobs:
     steps:
     - script: docker build -f Dockerfile -t $(imageName) .
       displayName: 'docker build'
-    - script: mkdir "publish" && docker save $(imageName) > ./publish/$(imageName.tar)
+    - script: mkdir "publish" && docker save $(imageName) > ./publish/$(imageName).tar
       displayName: 'save docker image'
     - task: PublishPipelineArtifact@0
       inputs: 
