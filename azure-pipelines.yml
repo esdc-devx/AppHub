@@ -6,12 +6,29 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'Ubuntu-16.04'
 
 variables:
-  imageName: 'DevXAppHub:$(build.buildId)'
+  imageName: 'dxapphub:$(build.buildId)'
 
-steps:
-- script: docker build -f Dockerfile -t $(imageName) .
-  displayName: 'docker build'
+jobs: 
+  - job: build_image
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+    - script: docker build -f Dockerfile -t $(imageName) .
+      displayName: 'docker build'
+    - script: mkdir "publish" && docker save $(imageName) > ./publish/$(imageName.tar)
+      displayName: 'save docker image'
+    - task: PublishPipelineArtifact@0
+      inputs: 
+        artifactName: 'testImage'
+        targetPath: './publish'
+  - job: a11y_test
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+      - task: DownloadPipelineArtifact@0
+        inputs: 
+          targetPath: .
+          artifactName: 'testImage'
+
