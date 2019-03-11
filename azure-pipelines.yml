@@ -32,4 +32,5 @@ jobs:
         inputs: 
           targetPath: .
           artifactName: 'testImage'
-            
+      - script: docker load $(imageName).tar
+        displayName: 'Loading Docker Image'
