@@ -2,7 +2,9 @@
   <div id="app">
     <div id="appDetails">
       <h1>{{ name }}</h1>
-      <p>{{ description }} <em>{{ build }}</em></p>
+      <p>
+        {{ description }} <em>{{ build }}</em>
+      </p>
     </div>
     <DashBoardTable />
   </div>
@@ -19,8 +21,13 @@ import DashBoardTable from "./components/DashBoardTable.vue";
 })
 export default class App extends Vue {
   @Prop() private name = "App Hub";
-  @Prop() private description = 'The ' + this.name + ', otherwise known as the Application Dashboard Hub. The ' + this.name + ' is a dashboard to show application pipeline status for multiple solutions in ESDC.';
-  @Prop() private build = 'Built by the Developer Experience team.';
+  @Prop() private description =
+    "The " +
+    this.name +
+    ", otherwise known as the Application Dashboard Hub. The " +
+    this.name +
+    " is a dashboard to show application pipeline status for multiple solutions in ESDC.";
+  @Prop() private build = "Built by the Developer Experience team.";
 }
 </script>
 
