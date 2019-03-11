@@ -1,3 +1,5 @@
+import gql from "graphql-tag";
+
 interface CodeCoverageData {
   name: string;
   coverage: number;
@@ -9,21 +11,26 @@ export class CCData {
   constructor() {}
 
   GetCCData(): CodeCoverageData[] {
+    apollo: {
+      GetProjectData: gql`
+        {
+          projects {
+            name
+            coverage
+            date
+          }
+        }
+      `;
+    }
+
+    var data : CodeCoverageData[] = this.$apollo.queries.GetProjectData();
+
+    if (data.length > 0) return data;
     return [
       {
-        name: "app1",
+        name: "No Data Found",
         coverage: 0,
         date: "n/a"
-      },
-      {
-        name: "App 2",
-        coverage: 80,
-        date: "2019/03/04 12:15"
-      },
-      {
-        name: "Custom App",
-        coverage: 15,
-        date: "2019/02/12 11:43"
       }
     ];
   }
