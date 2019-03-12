@@ -4,6 +4,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install 
 COPY . .
+
+RUN npm run-script test:unit
+
 RUN npm run build
 
 # production stage
