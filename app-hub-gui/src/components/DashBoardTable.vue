@@ -37,7 +37,8 @@ export default class CoreDataTable extends Vue {
 
   created() {
     const apiClient = new CCData();
-    this.solutions = apiClient.GetCCDataWithAlert();
+    apiClient.GetCCDataWithAlert()
+             .then(result => this.solutions = result);
   }
 }
 </script>

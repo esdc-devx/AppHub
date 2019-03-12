@@ -1,4 +1,6 @@
 import gql from "graphql-tag";
+import ApolloClient from "apollo-boost";
+
 
 interface CodeCoverageData {
   name: string;
@@ -10,30 +12,56 @@ interface CodeCoverageData {
 export class CCData {
   constructor() {}
 
-  GetCCData(): CodeCoverageData[] {
-    apollo: {
-      GetProjectData: gql`
-        {
-          projects {
-            name
-            coverage
-            date
+  async GetCCData(): Promise<CodeCoverageData[]> {
+    const client = new ApolloClient({
+      //TODO get from ENV Variable
+      uri: "http://localhost:4000"
+    });
+
+    try {
+      let result = await client.query({
+        query: gql`
+          {
+            projects {
+              name
+              coverage
+              lastUpdated
+            }
           }
-        }
-      `;
-    }
-
-    var data : CodeCoverageData[] = this.$apollo.queries.GetProjectData();
-
-    if (data.length > 0) return data;
-    return [
-      {
-        name: "No Data Found",
-        coverage: 0,
-        date: "n/a"
+        `
+      });
+      console.log(result);
+      if (result.data.projects.length > 0) {
+        return result.data
+                     .projects
+                     .map((project : any) => { 
+                       return { 
+                        name : project.name,
+                        coverage : project.coverage,
+                        date : project.lastUpdated,
+                     }
+                    });
       }
-    ];
+      return [
+        {
+          name: "No Data Found",
+          coverage: 0,
+          date: "n/a"
+        }
+      ];
+      
+    } catch (error) {
+      console.log(error);
+      return [
+        {
+          name: "Error calling backend",
+          coverage: 0,
+          date: "n/a"
+        }
+      ];
+    }
   }
+
   GetCCAlert(ccPercentage?: number): string {
     if (!ccPercentage) {
       return "danger";
@@ -43,11 +71,13 @@ export class CCData {
       return "success";
     }
   }
-  GetCCDataWithAlert() : CodeCoverageData[] {
-    var data = this.GetCCData();
+
+  async GetCCDataWithAlert() : Promise<CodeCoverageData[]> {
+    var data = await this.GetCCData();
     data.forEach(app => {
       app.status = this.GetCCAlert(app.coverage);
     });
     return data;
   }
+
 }
