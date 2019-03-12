@@ -1,6 +1,6 @@
 import { CCData } from "../../src/data"
 
-describe("CCData", () => {
+describe(CCData.name, () => {
 
     const data = new CCData();
 
