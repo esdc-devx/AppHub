@@ -27,7 +27,7 @@ export class CCData {
       }
     ];
   }
-  GetCCAlert(ccPercentage: number): string {
+  GetCCAlert(ccPercentage?: number): string {
     if (!ccPercentage) {
       return "danger";
     } else if (ccPercentage <= 25) {
@@ -36,7 +36,7 @@ export class CCData {
       return "success";
     }
   }
-  GetCCDataWithAlert() {
+  GetCCDataWithAlert() : CodeCoverageData[] {
     var data = this.GetCCData();
     data.forEach(app => {
       app.status = this.GetCCAlert(app.coverage);
