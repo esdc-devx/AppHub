@@ -6,18 +6,17 @@
 trigger:
 - master
 
-
 variables:
-  imageName: 'dxapphub:$(build.buildId)'
+  app-hub-image-name: 'dxapphub:$(build.buildId)'
 
 jobs: 
-  - job: build_image
+  - job: build_app_hub
     pool:
       vmImage: 'Ubuntu-16.04'
     steps:
-    - script: docker build -f Dockerfile -t $(imageName) .
+    - script: docker build -f Dockerfile -t $(app-hub-image-name) ./app-hub-gui/
       displayName: 'docker build'
-    - script: mkdir "publish" && docker save $(imageName) > ./publish/$(imageName).tar
+    - script: mkdir "publish" && docker save $(app-hub-image-name) > ./publish/$(app-hub-image-name).tar
       displayName: 'save docker image'
     - task: PublishPipelineArtifact@0
       inputs: 
@@ -32,5 +31,5 @@ jobs:
         inputs: 
           targetPath: .
           artifactName: 'testImage'
-      - script: docker load < $(imageName).tar
+      - script: docker load < $(app-hub-image-name).tar
         displayName: 'Loading Docker Image'
