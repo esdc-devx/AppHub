@@ -25,7 +25,7 @@ jobs:
   - job: loading_image
     pool:
       vmImage: 'Ubuntu-16.04'
-    dependsOn: build_image
+    dependsOn: build_app_hub
     steps:
       - task: DownloadPipelineArtifact@0
         inputs: 
