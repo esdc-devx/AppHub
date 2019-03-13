@@ -28,10 +28,10 @@ jobs:
     pool:
       vmImage: 'Ubuntu-16.04'
     steps:
-    - script: docker build -f ./app-hub-api/Dockerfile -t $(app-hub-gui-image-name) ./app-hub-gui/
-    - script: docker build -f Dockerfile -t $(app-hub-api-image-name) ./app-hub-gui/
+    - script: docker build -f ./app-hub-api/Dockerfile -t $(app-hub-api-image-name) ./app-hub-api/
+    - script: docker build -f Dockerfile -t $(app-hub-api-image-name) ./app-hub-api/
       displayName: 'docker build'
-    - script: mkdir "publish" && docker save $(app-hub-api-image-name) > ./publish/$(app-hub-gui-image-name).tar
+    - script: mkdir "publish" && docker save $(app-hub-api-image-name) > ./publish/$(app-hub-api-image-name).tar
       displayName: 'save docker image'
     - task: PublishPipelineArtifact@0
       inputs: 
