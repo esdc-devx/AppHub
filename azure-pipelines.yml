@@ -6,31 +6,51 @@
 trigger:
 - master
 
-
 variables:
-  imageName: 'dxapphub:$(build.buildId)'
+  app-hub-gui-image-name: 'dxapphubgui:$(build.buildId)'
+  app-hub-api-image-name: 'dxapphubapi:$(build.buildId)'
 
 jobs: 
-  - job: build_image
+  - job: build_app_hub_gui
     pool:
       vmImage: 'Ubuntu-16.04'
     steps:
-    - script: docker build -f Dockerfile -t $(imageName) .
+    - script: docker build -f ./app-hub-gui/Dockerfile -t $(app-hub-gui-image-name) ./app-hub-gui/
       displayName: 'docker build'
-    - script: mkdir "publish" && docker save $(imageName) > ./publish/$(imageName).tar
+    - script: mkdir "publish" && docker save $(app-hub-gui-image-name) > ./publish/$(app-hub-gui-image-name).tar
       displayName: 'save docker image'
     - task: PublishPipelineArtifact@0
       inputs: 
-        artifactName: 'testImage'
+        artifactName: '$(app-hub-gui-image-name)'
+        targetPath: './publish'
+  - job: build_app_hub_api
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+    - script: docker build -f ./app-hub-api/Dockerfile -t $(app-hub-api-image-name) ./app-hub-api/
+      displayName: 'docker build'
+    - script: mkdir "publish" && docker save $(app-hub-api-image-name) > ./publish/$(app-hub-api-image-name).tar
+      displayName: 'save docker image'
+    - task: PublishPipelineArtifact@0
+      inputs: 
+        artifactName: '$(app-hub-api-image-name)'
         targetPath: './publish'
   - job: loading_image
     pool:
       vmImage: 'Ubuntu-16.04'
-    dependsOn: build_image
+    dependsOn: 
+      - build_app_hub_gui 
+      - build_app_hub_api
     steps:
       - task: DownloadPipelineArtifact@0
         inputs: 
           targetPath: .
-          artifactName: 'testImage'
-      - script: docker load < $(imageName).tar
+          artifactName: '$(app-hub-gui-image-name)'
+      - task: DownloadPipelineArtifact@0
+        inputs: 
+          targetPath: .
+          artifactName: '$(app-hub-api-image-name)'
+      - script: docker load < $(app-hub-gui-image-name).tar
+        displayName: 'Loading Docker Image'
+      - script: docker load < $(app-hub-api-image-name).tar
         displayName: 'Loading Docker Image'
