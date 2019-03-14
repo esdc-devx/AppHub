@@ -61,7 +61,7 @@ jobs:
       - script: |
           cd integration-tests
           npm ci
-          $(npm bin)/cypress verify
+          npx cypress verify
         displayName: 'Setup Cypress'
-      - script: $(npm bin)/cypress run --config video=false
+      - script: npx cypress run --config video=false
         displayName: 'Run Cypress test'
