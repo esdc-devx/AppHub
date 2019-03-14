@@ -1,6 +1,6 @@
 <template>
   <div id="coreDataTable">
-    <table class="table">
+    <table class="table" id="cctable" >
       <caption>
         {{
           caption
@@ -11,7 +11,7 @@
           <th v-for="name in headers" :key="name.id">{{ name }}</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="table-body">
         <tr v-for="sln in solutions" v-bind:class="sln.status" :key="sln.id">
           <td>{{ sln.name }}</td>
           <td>
@@ -37,7 +37,8 @@ export default class CoreDataTable extends Vue {
 
   created() {
     const apiClient = new CCData();
-    this.solutions = apiClient.GetCCDataWithAlert();
+    apiClient.GetCCDataWithAlert()
+             .then(result => this.solutions = result);
   }
 }
 </script>

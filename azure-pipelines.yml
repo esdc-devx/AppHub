@@ -35,7 +35,7 @@ jobs:
       inputs: 
         artifactName: '$(app-hub-api-image-name)'
         targetPath: './publish'
-  - job: loading_image
+  - job: integration_tests
     pool:
       vmImage: 'Ubuntu-16.04'
     dependsOn: 
@@ -54,3 +54,14 @@ jobs:
         displayName: 'Loading Docker Image'
       - script: docker load < $(app-hub-api-image-name).tar
         displayName: 'Loading Docker Image'
+      - script: docker run -d -p 4000:4000 $(app-hub-api-image-name)
+        displayName: 'Start API Server'
+      - script: docker run -d -p 4848:80 $(app-hub-gui-image-name)
+        displayName: 'Start GUI Server'
+      - script: |
+          cd integration-tests
+          npm ci
+          npx cypress verify
+        displayName: 'Setup Cypress'
+      - script: cd integration-tests && npx cypress run --config video=false
+        displayName: 'Run Cypress test'

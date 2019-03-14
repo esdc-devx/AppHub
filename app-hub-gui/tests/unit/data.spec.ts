@@ -21,20 +21,23 @@ describe(CCData.name, () => {
     }) ;
     
     describe(data.GetCCData.name, () => {
-        it('returns 3 items', () => {
-            expect(data.GetCCData()).toHaveLength(3);
+        it('returns 3 items', (done) => {
+            return data.GetCCData().then(result => { 
+                expect(result).toHaveLength(3);
+            });
         });
     }); 
     
     describe(data.GetCCDataWithAlert.name, () => { 
         it('should properly map test data', () => {
-            
-            const result = data.GetCCDataWithAlert();
-            
-            expect(result[0].status).toBe('danger');
-            expect(result[1].status).toBe('success');
-            expect(result[2].status).toBe('warning');
+           
+            return data.GetCCDataWithAlert().then(result => { 
 
+                expect(result[0].status).toBe('danger');
+                expect(result[1].status).toBe('success');
+                expect(result[2].status).toBe('warning');
+
+            });
         });
     
     });
