@@ -15,6 +15,7 @@ export class CCData {
 
   async GetCCData(): Promise<CodeCoverageData[]> {
     //copied from AppHubApi
+    //TODO sync up schema between api and gui
     const typeDefs = gql`
       # Comments in GraphQL are defined with the hash (#) symbol.
       scalar Date
