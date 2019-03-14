@@ -42,7 +42,8 @@ The following command will bring down the system
 
 
 
-## GUI Project Setup Project setup
+## GUI Project Setup
+Run the following command in the `app-hub-gui` folder. 
 ```
 npm install
 ```
@@ -74,3 +75,14 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## API Project setup
+Run the following command in the `app-hub-api` folder. 
+```
+npm install
+```
+
+### Compile and hot-reloads for development
+```
+node index.js
+```
