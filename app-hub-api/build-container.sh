@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build . -t apphubapi:latest
+docker build . -t app-hub-api:latest
