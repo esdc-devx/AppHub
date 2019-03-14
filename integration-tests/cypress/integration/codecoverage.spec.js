@@ -34,32 +34,26 @@ context('Code Coverage', () => {
       });
   });
 
-  it('should have the class success on the first three test items', () => {
+  it('should have the correct class on the test data', () => {
     cy.get("#cctable")
       .children("tbody")
       .children("tr")
       .should(($listofelements) => {
-        $listofelements.slice(0,2).each((item) => {
-          item.should('have.class', 'success');
-        });
+        // use jquery's map to grab all of their classes
+        // jquery's map returns a new jquery object
+        const classes = $listofelements.map((i, el) => {
+          return Cypress.$(el).attr('class')
+        })
+
+        // call classes.get() to make this a plain array
+        expect(classes.get()).to.deep.eq([
+          'success',
+          'success',
+          'success',
+          'warning',
+          'danger'
+        ]);        
       });
   });
-
-  it('should have the class warning on the fourth test item', () => {
-    cy.get("#cctable")
-      .children("tbody")
-      .children("tr")
-      .eq(3)
-      .should('have.class', 'warning');
-  });
-
-  it('should have the class danger on the fifth test item', () => {
-    cy.get("#cctable")
-      .children("tbody")
-      .children("tr")
-      .eq(4)
-      .should('have.class', 'danger');
-  });
-  
 
 })
