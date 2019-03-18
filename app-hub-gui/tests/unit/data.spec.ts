@@ -1,18 +1,8 @@
 import { CCData } from "../../src/data";
-import ApolloClient from "apollo-boost";
+import { TestQueryApi } from "../../src/queryApi";
 
 describe(CCData.name, () => {
-  const customFetcher = jest.fn(() =>
-    Promise.resolve({
-      text: () => Promise.resolve('{"data": {"foo": "bar" }}'),
-    })
-  );
-
-  const client = new ApolloClient({
-    fetch : customFetcher
-  });
-
-  const data = new CCData(client);
+  const data = new CCData(new TestQueryApi);
 
   describe(data.GetCCAlert.name, () => {
     it("returns 'warning' with 10 provided", () => {
@@ -31,7 +21,7 @@ describe(CCData.name, () => {
   });
 
   describe(data.GetCCData.name, () => {
-    it("returns 1 items", done => {
+    it("returns 3 items", () => {
       return data.GetCCData().then(result => {
         expect(result).toHaveLength(3);
       });
@@ -41,9 +31,9 @@ describe(CCData.name, () => {
   describe(data.GetCCDataWithAlert.name, () => {
     it("should properly map test data", () => {
       return data.GetCCDataWithAlert().then(result => {
-        expect(result[0].status).toBe("danger");
-        expect(result[1].status).toBe("success");
-        expect(result[2].status).toBe("warning");
+        expect(result[0].status).toBe("success");
+        expect(result[1].status).toBe("warning");
+        expect(result[2].status).toBe("danger");
       });
     });
   });
