@@ -1,15 +1,6 @@
 window.onload = function() {
   var defTop = document.getElementById("def-top");
-  defTop.outerHTML = wet.builder.appTop({
-    appName: [
-      {
-        href: "#",
-        text: "Application Dashboard"
-      }
-    ],
-    cdnEnv: "AKAMAI",
-    subTheme: "gcweb",
-    search: false,
+  defTop.outerHTML = wet.builder.top({
     lngLinks: [
       {
         lang: "fr",
@@ -17,21 +8,31 @@ window.onload = function() {
         text: "N/A"
       }
     ],
-    showPreContent: false,
-    topSecMenu: false
+    breadcrumbs: [
+      {
+        title: "Home",
+        href: "https://www.canada.ca/en/"
+      },
+      {
+        title: "ESDC",
+        href: "https://www.canada.ca/en/employment-social-development.html"
+      }
+    ]
   });
 
   var defPreFooter = document.getElementById("def-preFooter");
   defPreFooter.outerHTML = wet.builder.preFooter({
-    cdnEnv: "AKAMAI",
-    dateModified: "2018-02-15",
-    versionIdentifier: "0.0.1",
-    showPostContent: false
+    dateModified: "2019-03-19",
+    versionIdentifier: "0.2.0",
+    showFeedback: false
   });
 
   var defFooter = document.getElementById("def-footer");
-  defFooter.outerHTML = wet.builder.appFooter({
-    cdnEnv: "AKAMAI",
-    subTheme: "gcweb"
+  defFooter.outerHTML = wet.builder.footer({
+    contactLinks: [
+      {
+        href: "https://github.com/esdc-devx/AppHub/issues"
+      }
+    ]
   });
 };
